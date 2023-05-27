@@ -1,13 +1,8 @@
-// import Firebase from "firebase/compat/app";
+// import firebase from "firebase/compat/app";
 // import "firebase/compat/auth";
-// import 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 
 // TODO: Add SDKs for Firebase products that you want to use
-console.log(
-  "process.env.REACT_APP_MESSAGING_SENDER_ID",
-  process.env.REACT_APP_MESSAGING_SENDER_ID
-);
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -18,7 +13,6 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
-// import * as firebase from 'firebase';
+initializeApp(firebaseConfig);
 
-// firebase.initializeApp(environment.firebase);
+// export default firebase;

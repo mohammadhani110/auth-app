@@ -11,6 +11,7 @@ import {
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import PhoneLogin from "./pages/PhoneLogin.jsx";
 
 const App = () => {
   const { loading, user } = useAuth();
@@ -19,7 +20,7 @@ const App = () => {
     if (user) {
       return <Outlet />;
     }
-    return <Navigate to="/login" />;
+    return <Navigate to="/otp" />;
   };
   const UnAuthenticatedRoute = ({ user, component: Component }) => {
     if (user) {
@@ -44,6 +45,11 @@ const App = () => {
           exact
           path="/register"
           element={<UnAuthenticatedRoute component={Register} user={user} />}
+        />
+        <Route
+          exact
+          path="/otp"
+          element={<UnAuthenticatedRoute component={PhoneLogin} user={user} />}
         />
         <Route exact path="/" element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />

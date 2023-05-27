@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+
 import {
   getAuth,
   onAuthStateChanged,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -29,6 +32,96 @@ export const useFirebaseAuth = () => {
     // Clean up subscription
     return () => unsubscribe();
   }, []);
+  // async function setupRecaptcha() {
+  //   const widgetId = window.recaptchaWidgetId;
+  //   if (!window.recaptchaVerifier) {
+  //     window.recaptchaVerifier = new RecaptchaVerifier(
+  //       "sign-in-button",
+  //       {
+  //         size: "invisible",
+  //         callback: (response) => {
+  //           // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //           onSigninWithPhone();
+  //         },
+  //         "expired-callback": () => {
+  //           // Response expired. Ask user to solve reCAPTCHA again.
+  //           // ...
+  //         },
+  //         widgetId,
+  //       },
+  //       auth
+  //     );
+  //   }
+  // }
+
+  // const onSigninWithPhone = async (phoneNumber) => {
+  //   try {
+  //     const appVerifier = window.recaptchaVerifier;
+  //     const phoneNumber = "+92347388430"; // Replace with the user's phone number
+
+  //     const confirmationResult = await signInWithPhoneNumber(
+  //       auth,
+  //       phoneNumber,
+  //       appVerifier
+  //     );
+  //     window.confirmationResult = confirmationResult;
+  //     // Proceed with OTP verification
+  //     const verificationCode = window.prompt(
+  //       "Enter the OTP sent to your phone number:"
+  //     );
+  //     if (verificationCode) {
+  //       const response = await confirmationResult.confirm(verificationCode);
+  //       // OTP verification successful
+  //       console.log("User successfully logged in", response);
+  //       var user = response.user;
+  //       user.getIdToken().then((idToken) => {
+  //         window.localStorage.setItem("idToken", idToken);
+
+  //         console.log("idToken", idToken);
+  //       });
+  //       setUser(user);
+  //     } else {
+  //       // OTP verification cancelled
+  //       console.error("OTP verification cancelled");
+  //       window.alert("Error while checking the verification code:\n\n");
+  //       setUser(null);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setUser(null);
+  //   }
+
+  //   // try {
+  //   //   const confirmationResult = await signInWithPhoneNumber(
+  //   //     auth,
+  //   //     phoneNumber,
+  //   //     appVerifier
+  //   //   );
+  //   //   console.log("confirmationResult: " + confirmationResult);
+  //   //   const verificationCode = window.prompt(
+  //   //     "Enter the OTP sent to your phone number:"
+  //   //   );
+  //   //   if (verificationCode) {
+  //   //     const response = await confirmationResult.confirm(verificationCode);
+  //   //     // OTP verification successful
+  //   //     console.log("User successfully logged in", response);
+  //   //     var user = response.user;
+  //   //     user.getIdToken().then((idToken) => {
+  //   //       window.localStorage.setItem("idToken", idToken);
+
+  //   //       console.log("idToken", idToken);
+  //   //     });
+  //   //   } else {
+  //   //     // OTP verification cancelled
+  //   //     console.error("OTP verification cancelled");
+  //   //     window.alert("Error while checking the verification code:\n\n");
+  //   //   }
+  //   // } catch (error) {
+  //   //   // OTP verification failed
+  //   //   console.error(" OTP verification failed", error);
+  //   //   setError(error.message);
+  //   // }
+  // };
 
   const login = async (email, password) => {
     try {
@@ -68,6 +161,7 @@ export const useFirebaseAuth = () => {
 
   return {
     user,
+    setUser,
     error,
     loading,
     login,

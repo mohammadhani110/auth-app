@@ -6,6 +6,7 @@ export const AuthContext = createContext({
   user: null,
   error: null,
   loading: false,
+  setUser: async () => Promise.resolve(),
   login: async () => Promise.resolve(),
   register: async () => Promise.resolve(),
   logout: async () => Promise.resolve(),
